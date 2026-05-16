@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  OIDC identity provider and IAM role for the personal-website GitHub Actions
+  deploy pipeline. Grants the pipeline permission to sync to S3 and invalidate
+  CloudFront — no long-lived credentials required.
+
+# Deploy with:
+#   aws cloudformation deploy \
+#     --template-file infrastructure/github-actions-oidc.yml \
+#     --stack-name personal-website-github-actions \
+#     --capabilities CAPABILITY_NAMED_IAM
+#
+# After the stack completes, copy the RoleArn output value into GitHub repository
+# Settings → Secrets and variables → Actions → New repository secret, named AWS_ROLE_ARN.
+#
+# NOTE: If your AWS account already has an OIDCProvider for
+# token.actions.githubusercontent.com, remove the GitHubOIDCProvider resource
+# below and replace the Principal Federated value in GitHubActionsRole with the
+# existing provider ARN.
+
+Resources:
+
+  GitHubOIDCProvider:
+    Type: AWS::IAM::OIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList:
+        - sts.amazonaws.com
+      # SHA-1 thumbprint of the GitHub OIDC TLS certificate root.
+      # Verify the current value at: https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+        - 1c58a3a8518e8759bf075b76b750d4f2df264fcd
+
+  GitHubActionsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: github-actions-personal-website
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !GetAtt GitHubOIDCProvider.Arn
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+              StringLike:
+                # Scoped to any branch, tag, or environment in this repository only.
+                token.actions.githubusercontent.com:sub: repo:adam-farrell/personal-website:*
+      Policies:
+        - PolicyName: S3SyncPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource:
+                  - arn:aws:s3:::www-main-600893692809-us-east-1-an
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource:
+                  - arn:aws:s3:::www-main-600893692809-us-east-1-an/*
+        - PolicyName: CloudFrontInvalidationPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource:
+                  - arn:aws:cloudfront::600893692809:distribution/E10RLKEBI6Ih3R
+
+Outputs:
+  RoleArn:
+    Description: >
+      ARN of the GitHub Actions IAM role.
+      Add this as the AWS_ROLE_ARN secret in GitHub repository settings.
+    Value: !GetAtt GitHubActionsRole.Arn
