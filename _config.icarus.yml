@@ -1,0 +1,129 @@
+version: 5.1.0
+variant: default
+logo: /img/logo.svg
+head:
+    favicon: /img/favicon.svg
+    manifest:
+        name:
+        short_name:
+        start_url:
+        theme_color:
+        background_color:
+        display: standalone
+        icons:
+            -
+                src: ''
+                sizes: ''
+                type:
+    open_graph:
+        title:
+        type: blog
+        url:
+        image:
+        site_name:
+        author:
+        description:
+        twitter_card:
+        twitter_id:
+        twitter_site:
+        fb_admins:
+        fb_app_id:
+    structured_data:
+        title:
+        description:
+        url:
+        author:
+        publisher:
+        publisher_logo:
+        image:
+    meta:
+        - ''
+    rss: /atom.xml
+navbar:
+    menu:
+        Home: /
+        Archives: /archives
+        Tags: /tags
+        About: /about
+    links:
+        GitHub:
+            icon: fab fa-github
+            url: https://github.com/adam-farrell
+footer:
+    copyright: © Adam Farrell
+    links:
+        GitHub:
+            icon: fab fa-github
+            url: https://github.com/adam-farrell
+article:
+    highlight:
+        theme: atom-one-light
+        clipboard: true
+        fold: unfolded
+    readtime: true
+    update_time: true
+    licenses:
+search:
+    type: insight
+    index_pages: true
+donates: []
+sidebar:
+    left:
+        sticky: true
+    right:
+        sticky: false
+widgets:
+    -
+        position: left
+        type: profile
+        author: Adam Farrell
+        author_title: ''
+        location: ''
+        avatar:
+        avatar_rounded: false
+        gravatar:
+        follow_link: https://github.com/adam-farrell
+        social_links:
+            GitHub:
+                icon: fab fa-github
+                url: https://github.com/adam-farrell
+    -
+        position: left
+        type: toc
+        index: true
+        collapsed: true
+        depth: 3
+plugins:
+    animejs: true
+    back_to_top: true
+    baidu_analytics:
+        tracking_id:
+    bing_webmaster:
+        tracking_id:
+    busuanzi: false
+    cnzz:
+        id:
+        web_id:
+    cookie_consent:
+        type: info
+        theme: edgeless
+        static: false
+        position: bottom-left
+        policyLink: https://www.cookiesandyou.com/
+    gallery: true
+    google_analytics:
+        tracking_id:
+    hotjar:
+        site_id:
+    katex: false
+    mathjax: false
+    outdated_browser: false
+    pjax: false
+    progressbar: true
+    statcounter:
+        project:
+        security:
+providers:
+    cdn: jsdelivr
+    fontcdn: google
+    iconcdn: fontawesome
