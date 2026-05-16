@@ -6,8 +6,8 @@
     "dev": "hexo server --draft",
     "build": "hexo generate",
     "clean": "hexo clean",
-    "test": "node scripts/validate-build.js",
-    "release": "bash scripts/release.sh"
+    "test": "node bin/validate-build.js",
+    "release": "bash bin/release.sh"
   },
   "hexo": {
     "version": "8.1.2"
