@@ -1,41 +1,17 @@
 version: 5.1.0
 variant: default
-logo: /img/logo.svg
+logo: /img/logo.jpg
 head:
     favicon: /img/favicon.svg
     manifest:
-        name:
-        short_name:
-        start_url:
-        theme_color:
-        background_color:
+        name: Adam Farrell's Blog
+        short_name: Adam's Blog
+        start_url: https://adamfarrell.org
+        theme_color: "#cfe0fc"
+        background_color: "#cfe0fc"
         display: standalone
-        icons:
-            -
-                src: ''
-                sizes: ''
-                type:
     open_graph:
-        title:
         type: blog
-        url:
-        image:
-        site_name:
-        author:
-        description:
-        twitter_card:
-        twitter_id:
-        twitter_site:
-        fb_admins:
-        fb_app_id:
-    structured_data:
-        title:
-        description:
-        url:
-        author:
-        publisher:
-        publisher_logo:
-        image:
     meta:
         - ''
     rss: /atom.xml
@@ -49,12 +25,14 @@ navbar:
         GitHub:
             icon: fab fa-github
             url: https://github.com/adam-farrell
+        LinkedIn:
+            icon: fab fa-linkedin
+            url: https://linkedin.com/in/adam-farrell-92684829
+        Medium:
+            icon: fab fa-medium
+            url: https://medium.com/@adam.farrell
 footer:
     copyright: © Adam Farrell
-    links:
-        GitHub:
-            icon: fab fa-github
-            url: https://github.com/adam-farrell
 article:
     highlight:
         theme: atom-one-light
@@ -74,25 +52,8 @@ sidebar:
         sticky: false
 widgets:
     -
-        position: left
-        type: profile
-        author: Adam Farrell
-        author_title: ''
-        location: ''
-        avatar:
-        avatar_rounded: false
-        gravatar:
-        follow_link: https://github.com/adam-farrell
-        social_links:
-            GitHub:
-                icon: fab fa-github
-                url: https://github.com/adam-farrell
-    -
-        position: left
-        type: toc
-        index: true
-        collapsed: true
-        depth: 3
+        type: recent_posts
+        position: right
 plugins:
     animejs: true
     back_to_top: true
