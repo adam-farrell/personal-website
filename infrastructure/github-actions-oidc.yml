@@ -73,7 +73,7 @@ Resources:
                 Action:
                   - cloudfront:CreateInvalidation
                 Resource:
-                  - arn:aws:cloudfront::600893692809:distribution/E10RLKEBI6Ih3R
+                  - arn:aws:cloudfront::600893692809:distribution/E10RLKEBI6IH3R
 
 Outputs:
   RoleArn:
