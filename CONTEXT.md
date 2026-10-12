@@ -1,6 +1,7 @@
 # Project: Personal Website Blog
+
 Creating a personal website that I can play with technology outside of the corporate environment. The implementation
-will be completely static and not require compute to run. 
+will be completely static and not require compute to run.
 
 ## Glossary
 
@@ -14,30 +15,34 @@ will be completely static and not require compute to run.
 
 **Release** — a tagged git commit using calendar versioning (e.g., `2026.05.16`) that triggers the GitHub Actions pipeline to build and deploy to S3/CloudFront. Publishing a Post is a deliberate act: it requires cutting a Release. Commits to `main` without a tag do not deploy. If multiple releases occur on the same day, append a counter (e.g., `2026.05.16.1`).
 
-**Draft** — a Post in progress, stored in `source/_drafts/`. Excluded from builds and never deployed. Promoted to a publishable Post via `hexo publish`, then goes live only when a Release is cut.
-
+**Draft** — a Post in progress, marked with `draft: true` in its frontmatter. Excluded from builds and never deployed. Becomes publishable by removing the flag, then goes live only when a Release is cut.
 
 ## Tech Stack
+
 - **CI/CD Pipeline**: Github Actions and Runners
 - **Hosting CDN**: AWS Cloudfront
 - **Hosting Storage**: AWS S3
-- **Static Website Framework**: Hexo
-- **Theme**: Icarus
+- **Static Website Framework**: Astro (static output)
+- **Theme**: AstroWind (MIT, see `LICENSE-ASTROWIND.md`)
 - **Hosted Domain**: adamfarrell.org
 - **S3 Bucket**: `www-main-600893692809-us-east-1-an`
-- **CloudFront Distribution**: `www-main` (ID: `E10RLKEBI6Ih3R`), already connected to Route53 hosted zone for adamfarrell.org, HTTPS certificate provisioned
+- **CloudFront Distribution**: `www-main` (ID: `E10RLKEBI6IH3R`), already connected to Route53 hosted zone for adamfarrell.org, HTTPS certificate provisioned
 
 ## Coding Conventions
+
 - Use 2-space indentation.
 - Use descriptive variable names; follow camelCase.
 - Export functions individually rather than using default exports.
 
 ## Development Commands
-- `npm run dev`: Build and start local hexo server.
+
+- `npm run dev`: Start the local Astro dev server at http://localhost:4321.
 - `npm test`: Run the test suite (run before every commit).
-- `npm build`: Builds the website without running
-- `npm release`: Builds, tests, and creates a release in Github that will be released via Github runners
+- `npm run build`: Builds the website into `dist/` without deploying.
+- `npm run release`: Runs `npm test`, then creates and pushes a calendar-version git tag (e.g. `2026.10.11`). The tag triggers the GitHub Actions deploy to S3/CloudFront.
 
 ## Architecture
-- Static Website will be built locally and pushed to Github with a release tag. 
-- When introducing any technology only use open-source software or solutions with a free tier. 
+
+- Posts live in `src/data/post/` (Markdown or MDX). Pages are composed from AstroWind widgets in `src/pages/`. Images live in `src/assets/images/` and are optimized at build time.
+- Static Website will be built locally and pushed to Github with a release tag.
+- When introducing any technology only use open-source software or solutions with a free tier.

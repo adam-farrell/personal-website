@@ -1,0 +1,189 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import HeroText from '~/components/widgets/HeroText.astro';
+import Timeline from '~/components/widgets/Timeline.astro';
+import Gallery from '~/components/widgets/Gallery.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Resume',
+  description:
+    'Adam Farrell: Senior Principal Software Engineer at Nike. Experience across Nike, GameHouse, MySpace and Microsoft.',
+};
+
+// Picture rules of thumb:
+// - Use photos you took, or ones you have permission to use (event photographers own their shots).
+// - Logos may appear incidentally to show where you worked or spoke, never as decoration or branding.
+// - Nothing internal or confidential: no architecture diagrams, dashboards, whiteboards or unreleased products.
+// Images are placeholders: replace the files in src/assets/images/placeholders/
+// (or point `src` at new files). They are resized and converted to WebP at build time.
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Resume" title="Experience, in pictures">
+    <Fragment slot="subtitle">
+      Nearly two decades of backend engineering, from mobile messaging at MySpace to cloud platforms at Nike.
+    </Fragment>
+  </HeroText>
+
+  <Timeline
+    id="experience"
+    title="Experience"
+    layout="alternate"
+    items={[
+      {
+        date: 'June 2025 – Present',
+        title: 'Senior Principal Software Engineer · Nike',
+        description:
+          'Built the roadmap for governed emergency access to AWS accounts: approvals, incident integration, audit visibility and compliance reporting.<br />Designed and operationalized the AWS account approval workflow, with a focus on governance, cost and security controls.<br />Co-created a managed AWS account strategy using Kubernetes control planes and Crossplane for a multi-tenant environment.<br />Co-hosts the weekly cloud governance and platform engineering community of practice.',
+        icon: 'tabler:briefcase',
+        image: { src: '~/assets/images/placeholders/work-1.jpg', alt: 'Placeholder: cloud governance work at Nike' },
+        highlight: true,
+      },
+      {
+        date: 'October 2021 – June 2025',
+        title: 'Principal Software Engineer · Nike',
+        description:
+          'Cut P50 network latency by 40% in Nike Korea retail stores by optimizing network topology with security and networking teams.<br />Implemented the AWS controls behind K-ISMS certification, covering more than 3,000 users.<br />Reduced spam chat contacts to call centers by 75% and refund orders by 50% with a low-code solution.<br />Identified 30% AWS cost savings as part of an organizational efficiency tiger team.',
+        icon: 'tabler:briefcase',
+        image: {
+          src: '~/assets/images/placeholders/work-3.jpg',
+          alt: 'Placeholder: retail checkout and customer service work',
+        },
+      },
+      {
+        date: 'April 2017 – October 2021',
+        title: 'Lead Software Engineer · Nike',
+        description:
+          'Owned the Nike App home page API: up to 60% lower global latency, 4% more channel revenue, and high-severity incidents down from monthly to none for two years.<br />Built the order history service for nike.com and the mobile apps, cutting traffic to shipping APIs by 30%.<br />Spoke at AWS re:Invent 2018 on how Nike uses DynamoDB at scale, to more than 500 attendees.<br />Wrote "Moving Faster with AWS by Creating an Event Stream Database" for the Nike Engineering blog.',
+        icon: 'tabler:briefcase',
+        image: { src: '~/assets/images/placeholders/work-5.jpg', alt: 'Placeholder: Nike App and re:Invent' },
+      },
+      {
+        date: 'June 2015 – April 2017',
+        title: 'Senior Software Engineer · Nike',
+        description:
+          'Worked on the event-driven activity platform behind Nike Run Club and Nike Training Club, written in Scala and Java on AWS.<br />Migrated activity data from unmanaged Cassandra to Aurora and DynamoDB, cutting AWS costs by 98%.<br />Wrote the orchestration service for DPA and GDPR requests across the activity platform.<br />Hosted two record-setting Engineering Forums with over 100 people in person and 50 online.',
+        icon: 'tabler:briefcase',
+        image: { src: '~/assets/images/placeholders/work-4.jpg', alt: 'Placeholder: Nike Run Club activity platform' },
+      },
+      {
+        date: 'February 2011 – April 2015',
+        title: 'Senior Software Engineer · GameHouse (RealNetworks)',
+        description:
+          'Designed a new shopping cart that brought cart processing from 3 seconds to 150 ms.<br />Built business intelligence tooling on Hadoop, Hive and PostgreSQL, improving cluster performance by 25%.<br />Helped move GameHouse.com off the RealNetworks platform and onto its own, including the data migration.',
+        icon: 'tabler:briefcase',
+        image: { src: '~/assets/images/placeholders/work-2.jpg', alt: 'Placeholder: GameHouse.com' },
+      },
+      {
+        date: 'June 2007 – January 2011',
+        title: 'Software Developer · MySpace (Fox Interactive Media)',
+        description:
+          'Implemented the instant messaging protocol and mail backend for the MySpace iPhone app.<br />Analyzed the site redesign for bottlenecks, improving page throughput two to three times.<br />Promoted from SDET to QA Architect after one year, and built a C# automation framework covering the whole site.',
+        icon: 'tabler:briefcase',
+        image: { src: '~/assets/images/placeholders/work-6.jpg', alt: 'Placeholder: MySpace mobile' },
+      },
+      {
+        title: 'Software Design Engineer in Test II · Microsoft (contract)',
+        description:
+          'One-year contract on the Windows International team, finding globalization and localization issues ahead of Windows Vista and Longhorn Server.',
+        icon: 'tabler:briefcase',
+      },
+    ]}
+  />
+
+  <Gallery
+    id="gallery"
+    title="The work, up close"
+    subtitle="Talks, writing and side projects. Click a picture to enlarge it."
+    columns={3}
+    images={[
+      {
+        src: '~/assets/images/placeholders/work-1.jpg',
+        alt: 'Placeholder image',
+        caption: 'Speaking at re:Invent 2018 (photo coming soon)',
+      },
+      {
+        src: '~/assets/images/placeholders/work-6.jpg',
+        alt: 'Placeholder image',
+        caption: 'Nike Engineering blog post (photo coming soon)',
+      },
+      {
+        src: '~/assets/images/placeholders/work-3.jpg',
+        alt: 'Placeholder image',
+        caption: 'A conference or meetup I attended (photo coming soon)',
+      },
+      {
+        src: '~/assets/images/placeholders/work-4.jpg',
+        alt: 'Placeholder image',
+        caption: 'A side project from this blog (photo coming soon)',
+      },
+      {
+        src: '~/assets/images/placeholders/work-5.jpg',
+        alt: 'Placeholder image',
+        caption: 'Speaking at a public event (photo coming soon)',
+      },
+      {
+        src: '~/assets/images/placeholders/work-2.jpg',
+        alt: 'Placeholder image',
+        caption: 'Outside of work (photo coming soon)',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Gallery>
+
+  <Features3
+    id="skills"
+    title="Skills"
+    columns={3}
+    defaultIcon="tabler:point-filled"
+    items={[
+      {
+        title: 'AWS',
+        description:
+          'DynamoDB, Aurora, Glue, Kinesis Firehose, Athena, SNS/SQS, Global Accelerator, CloudFront and IAM.',
+      },
+      {
+        title: 'Cloud governance and platforms',
+        description: 'AWS account governance, emergency access, cost controls, Kubernetes and Crossplane.',
+      },
+      { title: 'Event-driven architecture', description: 'CQRS, event streams and eventually consistent data stores.' },
+      { title: 'Languages', description: 'Scala, Java, Kotlin, Node.js and C#.' },
+      { title: 'Data engineering', description: 'ETL pipelines, Hadoop, Hive, PostgreSQL and SQL Server migrations.' },
+      { title: 'Security and compliance', description: 'K-ISMS, GDPR and DPA request handling, and PCI.' },
+    ]}
+  />
+
+  <Steps
+    id="education"
+    title="Education"
+    items={[
+      {
+        title:
+          'B.S. Computer Science <br /> <span class="font-normal">Western Washington University</span> <br /> <span class="text-sm font-normal">2006</span>',
+        icon: 'tabler:school',
+      },
+    ]}
+    classes={{ container: 'max-w-3xl' }}
+  />
+
+  <CallToAction
+    title="Want the full story?"
+    subtitle="Reach out on LinkedIn for a copy of my resume."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Connect on LinkedIn',
+        href: 'https://linkedin.com/in/adam-farrell-92684829',
+        target: '_blank',
+        icon: 'tabler:brand-linkedin',
+      },
+    ]}
+  />
+</Layout>

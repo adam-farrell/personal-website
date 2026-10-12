@@ -1,0 +1,7 @@
+dist
+node_modules
+.github
+.changeset
+# Project docs and infrastructure keep their own formatting
+docs/
+infrastructure/
