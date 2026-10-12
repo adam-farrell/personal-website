@@ -1,22 +1,22 @@
 #!/usr/bin/env node
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 console.log('Building site...');
-execSync('npx hexo generate', { cwd: root, stdio: 'inherit' });
+execSync('npx astro build', { cwd: root, stdio: 'inherit' });
 
 const required = [
-  'public/index.html',
-  'public/atom.xml',
-];
-
-const searchCandidates = [
-  'public/search.xml',
-  'public/search.json',
-  'public/content.json',
+  'dist/index.html',
+  'dist/blog/index.html',
+  'dist/resume/index.html',
+  'dist/404.html',
+  'dist/rss.xml',
+  'dist/sitemap-index.xml',
+  'dist/robots.txt',
 ];
 
 let passed = true;
@@ -29,14 +29,6 @@ for (const file of required) {
     console.error(`✗ Missing: ${file}`);
     passed = false;
   }
-}
-
-const searchFound = searchCandidates.find(f => fs.existsSync(path.join(root, f)));
-if (searchFound) {
-  console.log(`✓ ${searchFound} (search index)`);
-} else {
-  console.error(`✗ Missing search index (checked: ${searchCandidates.join(', ')})`);
-  passed = false;
 }
 
 if (!passed) {

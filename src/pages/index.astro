@@ -1,0 +1,167 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
+import Projects from '~/components/widgets/Projects.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import StructuredData from '~/components/common/StructuredData.astro';
+import { SITE, I18N } from 'astrowind:config';
+import { getPermalink, getBlogPermalink } from '~/utils/permalinks';
+import { footerData } from '~/navigation';
+
+const metadata = {
+  title: 'Adam Farrell — Senior Principal Software Engineer',
+  ignoreTitleTemplate: true,
+};
+
+// A Person entity with `sameAs` profile links helps search engines connect
+// this site to the same person on GitHub, LinkedIn and Medium.
+const personId = `${SITE?.site}/#person`;
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE?.site}/#website`,
+    name: SITE?.name,
+    url: SITE?.site,
+    inLanguage: I18N?.language,
+    publisher: { '@id': personId },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': personId,
+    name: 'Adam Farrell',
+    url: SITE?.site,
+    jobTitle: 'Senior Principal Software Engineer',
+    worksFor: { '@type': 'Organization', name: 'Nike' },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Western Washington University' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Portland', addressRegion: 'OR', addressCountry: 'US' },
+    sameAs: footerData.socialLinks.filter(({ ariaLabel }) => ariaLabel !== 'RSS').map(({ href }) => href),
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <StructuredData slot="head" schema={structuredData} />
+
+  <!-- Hero: who you are, at a glance -->
+  <Hero
+    tagline="Hi, I'm"
+    title="Adam Farrell"
+    actions={[
+      { variant: 'primary', text: 'Read the blog', href: getBlogPermalink(), icon: 'tabler:article' },
+      { text: 'View resume', href: getPermalink('/resume') },
+    ]}
+    image={{ src: '~/assets/images/hero.jpg', alt: 'Illustration of a terminal prompt over mountains at night' }}
+  >
+    <Fragment slot="subtitle">
+      Senior Principal Software Engineer at Nike, writing about cloud platforms, AWS and experiments in tech.
+    </Fragment>
+  </Hero>
+
+  <!-- About: photo beside a short intro -->
+  <Content
+    id="about"
+    columns={3}
+    image={{ src: '~/assets/images/placeholders/portrait.jpg', alt: 'Portrait of Adam Farrell', aspect: '1/1' }}
+    items={[
+      {
+        icon: 'tabler:brand-github',
+        callToAction: { target: '_blank', text: 'GitHub', href: 'https://github.com/adam-farrell' },
+      },
+      {
+        icon: 'tabler:brand-linkedin',
+        callToAction: { target: '_blank', text: 'LinkedIn', href: 'https://linkedin.com/in/adam-farrell-92684829' },
+      },
+      {
+        icon: 'tabler:brand-medium',
+        callToAction: { target: '_blank', text: 'Medium', href: 'https://medium.com/@adam.farrell' },
+      },
+    ]}
+  >
+    <Fragment slot="content">
+      <h2 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">About me</h2>
+      <p>
+        I've spent nearly two decades building backend systems, from MySpace's mobile messaging to the platforms behind
+        Nike Run Club and the Nike App. Today I work on cloud governance and platform engineering at Nike, in Portland,
+        Oregon.
+      </p>
+      <br />
+      <p>
+        Outside of work I like experimenting with technology for its own sake. This site is where those experiments get
+        documented.
+      </p>
+      <br />
+      <p>You can also find me here:</p>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Highlights: picture-first cards -->
+  <Projects
+    id="highlights"
+    title="Highlights"
+    subtitle="A talk, a post and a service I'm proud of."
+    items={[
+      {
+        title: 'Speaking at AWS re:Invent 2018',
+        description:
+          'DAT320, "Becoming a Nimble Giant: How Amazon DynamoDB Serves Nike at Scale". How the Sport Activity team used DynamoDB to reach massive scale at low cost.',
+        image: { src: '~/assets/images/placeholders/work-1.jpg', alt: 'Placeholder for a photo from re:Invent 2018' },
+        tags: ['re:Invent', 'DynamoDB'],
+        result: '500+ people in attendance',
+        href: 'https://www.youtube.com/watch?v=6A1tOFqvgek',
+        linkText: 'Watch the talk',
+      },
+      {
+        title: 'Moving faster with AWS by creating an event stream database',
+        description:
+          'My post on the Nike Engineering blog about FIESTA, a notification service built on Kinesis Firehose, S3, Athena and Glue to handle bursty traffic.',
+        image: { src: '~/assets/images/placeholders/work-2.jpg', alt: 'Placeholder for the blog post cover' },
+        tags: ['Nike Engineering', 'Event streams'],
+        href: 'https://medium.com/nikeengineering/moving-faster-with-aws-by-creating-an-event-stream-database-dedec8ca3eeb',
+        linkText: 'Read the post',
+      },
+      {
+        title: 'Nike App home page API',
+        description:
+          'Took ownership of the service behind the Nike App home page and rebuilt it for speed and stability, with dynamic content via Adobe Target.',
+        image: {
+          src: '~/assets/images/placeholders/work-5.jpg',
+          alt: 'Placeholder for a photo of the Nike App home page',
+        },
+        tags: ['Kotlin', 'APIs'],
+        result: 'Up to 60% lower global latency, +4% channel revenue',
+        href: getPermalink('/resume'),
+        linkText: 'See on resume',
+      },
+    ]}
+  />
+
+  <!-- Latest writing -->
+  <BlogLatestPosts id="blog" title="Latest from the blog" count={3}>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </BlogLatestPosts>
+
+  <CallToAction
+    title="Let's connect"
+    subtitle="The best way to reach me is on LinkedIn."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Connect on LinkedIn',
+        href: 'https://linkedin.com/in/adam-farrell-92684829',
+        target: '_blank',
+        icon: 'tabler:brand-linkedin',
+      },
+    ]}
+  />
+</Layout>

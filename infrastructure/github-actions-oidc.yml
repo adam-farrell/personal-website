@@ -79,5 +79,5 @@ Outputs:
   RoleArn:
     Description: >
       ARN of the GitHub Actions IAM role.
-      Add this as the AWS_ROLE_ARN secret in GitHub repository settings.
+      Referenced directly as role-to-assume in .github/workflows/deploy.yml.
     Value: !GetAtt GitHubActionsRole.Arn

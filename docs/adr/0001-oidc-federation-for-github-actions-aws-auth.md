@@ -22,4 +22,4 @@ Use OIDC federation. AWS is configured as a trusted identity provider for GitHub
 
 - IAM role: `arn:aws:iam::600893692809:role/github-actions-personal-website`
 - CloudFormation template: `infrastructure/github-actions-oidc.yml`
-- Role ARN stored as `AWS_ROLE_ARN` in GitHub repository secrets
+- Role ARN is written directly in `.github/workflows/deploy.yml` (`role-to-assume`). It isn't a secret: it grants nothing without a GitHub OIDC token that matches the role's trust policy
