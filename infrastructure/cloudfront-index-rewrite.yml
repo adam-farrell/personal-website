@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  CloudFront Function that maps clean URLs (/blog, /blog/hello-world) to the
+  index.html files Astro writes. Without it the private S3 origin returns 403
+  for every page except the homepage.
+
+# Deploy or update (same command; AutoPublish pushes the new code live):
+#   aws cloudformation deploy \
+#     --template-file infrastructure/cloudfront-index-rewrite.yml \
+#     --stack-name personal-website-cloudfront-functions
+#
+# One-time setup on distribution E10RLKEBI6IH3R, which isn't managed here:
+#   1. Behaviors > Default (*) > Edit > Viewer request > CloudFront Functions >
+#      personal-website-index-rewrite
+#   2. Error pages > Create custom error response: 403 -> /404.html, code 404
+
+Resources:
+  IndexRewriteFunction:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: personal-website-index-rewrite
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Append index.html to directory-style URLs
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var request = event.request;
+          var uri = request.uri;
+          if (uri.endsWith('/')) {
+            request.uri += 'index.html';
+          } else if (!uri.includes('.', uri.lastIndexOf('/'))) {
+            request.uri += '/index.html';
+          }
+          return request;
+        }
+
+Outputs:
+  FunctionArn:
+    Description: Function ARN used by the distribution's viewer-request association.
+    Value: !GetAtt IndexRewriteFunction.FunctionMetadata.FunctionARN
