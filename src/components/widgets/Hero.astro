@@ -9,6 +9,7 @@ const {
   subtitle = await Astro.slots.render('subtitle'),
   tagline,
   badge,
+  avatar,
 
   content = await Astro.slots.render('content'),
   actions = await Astro.slots.render('actions'),
@@ -32,6 +33,19 @@ const imageWhole = imageAspect === 'auto';
     <div class="pt-0 md:pt-[76px] pointer-events-none"></div>
     <div class="py-12 md:py-20">
       <div class="text-center pb-10 md:pb-16 max-w-5xl mx-auto">
+        {avatar && (
+          <Image
+            class="mx-auto mb-6 h-40 w-40 rounded-full object-cover shadow-lg ring-4 ring-white md:h-48 md:w-48 dark:ring-slate-800"
+            widths={[160, 192, 320, 384]}
+            sizes="(max-width: 767px) 160px, 192px"
+            width={192}
+            height={192}
+            loading="eager"
+            fetchpriority="high"
+            format="webp"
+            {...avatar}
+          />
+        )}
         {badge && (
           <span class="inline-block mb-4 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary dark:bg-primary/25 dark:text-blue-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
             {badge}

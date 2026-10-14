@@ -3,7 +3,6 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import HeroText from '~/components/widgets/HeroText.astro';
 import Timeline from '~/components/widgets/Timeline.astro';
-import Gallery from '~/components/widgets/Gallery.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
@@ -14,149 +13,188 @@ const metadata = {
     'Adam Farrell: Senior Principal Software Engineer at Nike. Experience across Nike, GameHouse, MySpace and Microsoft.',
 };
 
-// Picture rules of thumb:
-// - Use photos you took, or ones you have permission to use (event photographers own their shots).
-// - Logos may appear incidentally to show where you worked or spoke, never as decoration or branding.
-// - Nothing internal or confidential: no architecture diagrams, dashboards, whiteboards or unreleased products.
-// Images are placeholders: replace the files in src/assets/images/placeholders/
-// (or point `src` at new files). They are resized and converted to WebP at build time.
+// Each role is a one-line summary followed by its highlights.
+const role = (summary: string, highlights: string[]) =>
+  '<p>' +
+  summary +
+  '</p><ul class="mt-3 list-disc space-y-2 pl-5">' +
+  highlights.map((item) => '<li>' + item + '</li>').join('') +
+  '</ul>';
 ---
 
 <Layout metadata={metadata}>
-  <HeroText tagline="Resume" title="Experience, in pictures">
+  <!-- The visible header has no title, so keep one h1 for screen readers and search engines. -->
+  <h1 class="sr-only">Adam Farrell — Resume</h1>
+  <HeroText>
     <Fragment slot="subtitle">
-      Nearly two decades of backend engineering, from mobile messaging at MySpace to cloud platforms at Nike.
+      I'm a Senior Principal Software Engineer at Nike, working on cloud governance and platform engineering for AWS.
+      Over two decades I've gone from testing Windows at Microsoft and serving as QA Architect at MySpace to e-commerce
+      at GameHouse and the services behind Nike Run Club, the Nike App and Nike's retail stores.
     </Fragment>
   </HeroText>
 
   <Timeline
     id="experience"
     title="Experience"
-    layout="alternate"
     items={[
       {
         date: 'June 2025 – Present',
         title: 'Senior Principal Software Engineer · Nike',
-        description:
-          'Built the roadmap for governed emergency access to AWS accounts: approvals, incident integration, audit visibility and compliance reporting.<br />Designed and operationalized the AWS account approval workflow, with a focus on governance, cost and security controls.<br />Co-created a managed AWS account strategy using Kubernetes control planes and Crossplane for a multi-tenant environment.<br />Co-hosts the weekly cloud governance and platform engineering community of practice.',
+        description: role('Cloud governance and platform engineering across Nike’s AWS accounts.', [
+          'Built the development roadmap for governed emergency access to AWS accounts, covering approval paths, incident integration, audit visibility and compliance reporting.',
+          'Designed and operationalized the AWS account approval workflow, focused on governance, cost management, security controls and consolidation, with more visibility for engineering leadership.',
+          'Co-created a managed AWS account strategy that uses Kubernetes control planes and Crossplane to run a multi-tenant environment.',
+          'Co-host the weekly cloud governance and platform engineering community of practice.',
+        ]),
         icon: 'tabler:briefcase',
-        image: { src: '~/assets/images/placeholders/work-1.jpg', alt: 'Placeholder: cloud governance work at Nike' },
         highlight: true,
       },
       {
         date: 'October 2021 – June 2025',
         title: 'Principal Software Engineer · Nike',
-        description:
-          'Cut P50 network latency by 40% in Nike Korea retail stores by optimizing network topology with security and networking teams.<br />Implemented the AWS controls behind K-ISMS certification, covering more than 3,000 users.<br />Reduced spam chat contacts to call centers by 75% and refund orders by 50% with a low-code solution.<br />Identified 30% AWS cost savings as part of an organizational efficiency tiger team.',
+        description: role('Promoted to Principal, focused on retail in-store checkout and customer service.', [
+          'Cut P50 network latency in Nike Korea retail stores by 40% by optimizing network topology, working with corporate security and networking teams to establish a trusted origin.',
+          'Implemented the AWS controls behind K-ISMS certification, affecting more than 3,000 users, with legal and corporate security teams.',
+          'Helped launch CS Agent in the Nike App, replacing a legacy rule-based chatbot with an AI agent that understands intent and responds in real time. Athletes can track orders and manage returns, and the agent hands off to Consumer Services with a chat summary when they need more help.',
+          'Reduced spam chat contacts to call centers by 75% and refund orders by 50% with a low-code solution.',
+          'Wrote the transform step of an ETL process that migrated Korea customer service cases from Zendesk into Salesforce.',
+          'Helped a vendor team with an AWS Glue migration pipeline for China user data, taking its total runtime from 28 hours to 34 minutes.',
+          'Identified 30% AWS cost savings on a tiger team targeting organizational efficiency.',
+        ]),
         icon: 'tabler:briefcase',
-        image: {
-          src: '~/assets/images/placeholders/work-3.jpg',
-          alt: 'Placeholder: retail checkout and customer service work',
-        },
       },
       {
         date: 'April 2017 – October 2021',
         title: 'Lead Software Engineer · Nike',
-        description:
-          'Owned the Nike App home page API: up to 60% lower global latency, 4% more channel revenue, and high-severity incidents down from monthly to none for two years.<br />Built the order history service for nike.com and the mobile apps, cutting traffic to shipping APIs by 30%.<br />Spoke at AWS re:Invent 2018 on how Nike uses DynamoDB at scale, to more than 500 attendees.<br />Wrote "Moving Faster with AWS by Creating an Event Stream Database" for the Nike Engineering blog.',
+        description: role(
+          'Promoted to Lead on the Sport Activity and Targeted Marketing Platform teams. In August 2018, moved to a new backend API team building Kotlin services for Nike’s mobile commerce apps.',
+          [
+            'Took ownership of the Nike App home page API: up to 60% lower global latency, 4% more revenue through the channel, high-severity incidents down from one a month to none for two years, and dynamic content through Adobe Target.',
+            'Built the order history service for nike.com and the mobile apps, consolidating several downstream APIs, moving logic out of the clients and cutting traffic to the shipping APIs by 30%.',
+            'Got AWS Global Accelerator approved for production through thorough testing and documentation.',
+            'Integrated SignalFx metrics and tracing into Nike’s Node.js GraphQL implementation.',
+            'Spoke at AWS re:Invent 2018 to more than 500 attendees on how the Sport Activity team used DynamoDB to reach massive scale at low cost: <a class="underline hover:text-primary" href="https://www.youtube.com/watch?v=6A1tOFqvgek" target="_blank" rel="noopener">DAT320, “Becoming a Nimble Giant: How Amazon DynamoDB Serves Nike at Scale”</a>.',
+            'Wrote <a class="underline hover:text-primary" href="https://medium.com/nikeengineering/moving-faster-with-aws-by-creating-an-event-stream-database-dedec8ca3eeb" target="_blank" rel="noopener">“Moving Faster with AWS by Creating an Event Stream Database”</a> for the Nike Engineering blog, about one of the entry points to the Targeted Marketing Platform.',
+          ]
+        ),
         icon: 'tabler:briefcase',
-        image: { src: '~/assets/images/placeholders/work-5.jpg', alt: 'Placeholder: Nike App and re:Invent' },
       },
       {
         date: 'June 2015 – April 2017',
         title: 'Senior Software Engineer · Nike',
-        description:
-          'Worked on the event-driven activity platform behind Nike Run Club and Nike Training Club, written in Scala and Java on AWS.<br />Migrated activity data from unmanaged Cassandra to Aurora and DynamoDB, cutting AWS costs by 98%.<br />Wrote the orchestration service for DPA and GDPR requests across the activity platform.<br />Hosted two record-setting Engineering Forums with over 100 people in person and 50 online.',
+        description: role(
+          'Joined to work on the activity platform behind Nike Run Club and Nike Training Club: event-driven with CQRS and eventually consistent data stores, on AWS (SNS, SQS, EC2, CloudFormation), written in Scala and Java.',
+          [
+            'Migrated activity and user time zone data from unmanaged Cassandra clusters to Aurora and DynamoDB, cutting DevOps work from days to minutes and AWS costs by 98%.',
+            'Added ElastiCache (Redis) to the platform for granular data locking and fast payload retrieval by downstream systems.',
+            'Wrote the orchestration service for DPA and GDPR requests across the activity platform, with easy auditing and replay on errors.',
+            'Hosted and helped organize two record-setting Engineering Forums, each with more than 100 people in person and 50 online. The first brought in AWS Aurora experts through Nike’s AWS account manager; the second had Nike engineers speak about their work with containers.',
+          ]
+        ),
         icon: 'tabler:briefcase',
-        image: { src: '~/assets/images/placeholders/work-4.jpg', alt: 'Placeholder: Nike Run Club activity platform' },
       },
       {
         date: 'February 2011 – April 2015',
         title: 'Senior Software Engineer · GameHouse (RealNetworks)',
-        description:
-          'Designed a new shopping cart that brought cart processing from 3 seconds to 150 ms.<br />Built business intelligence tooling on Hadoop, Hive and PostgreSQL, improving cluster performance by 25%.<br />Helped move GameHouse.com off the RealNetworks platform and onto its own, including the data migration.',
+        description: role(
+          'Built Java and Spring web applications for GameHouse.com. Promoted to Senior in April 2013 for code quality, design decisions and mentoring, and joined the Business Intelligence team in July 2014.',
+          [
+            'Designed a new shopping cart built for simplicity and easy extension, bringing cart processing from 3 seconds to 150 ms. Later moved it onto a new data services platform and added credit card processing and tax calculation.',
+            'Key member of the project that moved GameHouse.com and its data off the RealNetworks platform onto GameHouse’s own, including the scripts and plan for migrating user accounts, purchase history and subscriptions from Oracle to SQL Server.',
+            'Led the migration of the in-house marketing email system to an outside provider: schema, daily data updates and fixes to legacy templates.',
+            'Built an SEO feature that highlighted and linked phrases in dynamic content, processing 10,000 content blocks against a 10,000-phrase dictionary in under a second.',
+            'Made the platform changes for the company-wide PCI compliance effort.',
+            'Improved production stability with feature flags the team could switch without touching a front-end server.',
+            'Helped build a rewards program and a social toolbar to make GameHouse.com more socially connected.',
+            'On the BI team, built solutions with PostgreSQL, Hive, Hadoop and Pentaho, and added Hadoop cluster monitoring that led to 25% better performance through configuration and uptime changes.',
+            'Automated the game sales selection workflow, from a full day of manual work to half an hour.',
+          ]
+        ),
         icon: 'tabler:briefcase',
-        image: { src: '~/assets/images/placeholders/work-2.jpg', alt: 'Placeholder: GameHouse.com' },
       },
       {
         date: 'June 2007 – January 2011',
         title: 'Software Developer · MySpace (Fox Interactive Media)',
-        description:
-          'Implemented the instant messaging protocol and mail backend for the MySpace iPhone app.<br />Analyzed the site redesign for bottlenecks, improving page throughput two to three times.<br />Promoted from SDET to QA Architect after one year, and built a C# automation framework covering the whole site.',
+        description: role(
+          'Promoted from SDET to QA Architect after one year, then moved to the mobile team to work on the interaction between devices and servers.',
+          [
+            'Implemented the instant messaging protocol and mail backend for the new MySpace iPhone app.',
+            'Maintained and redesigned mobile notification services: SMS, BlackBerry and Apple Push Notification Service.',
+            'Maintained and updated more than 200 iLike.com artist iPhone apps.',
+            'Analyzed server-side performance of the site redesign, improving page throughput two to three times depending on the type of traffic.',
+            'Designed a two-layer C# automation framework covering every page on the site, and a runner that distributed its tests across many machines and stored results in SQL for analysis.',
+            'Gave technical guidance to a yearlong contractor project in India that expanded automation coverage across the site.',
+            'Improved the international experience with a pseudo-localization culture and reverse key lookup for fixing translations, and a resource scanner that found more than 2,000 valid issues.',
+            'Tested new features for a team of twelve developers, and wrote build scripts that let QA and product managers try UI flows before the backend was built.',
+          ]
+        ),
         icon: 'tabler:briefcase',
-        image: { src: '~/assets/images/placeholders/work-6.jpg', alt: 'Placeholder: MySpace mobile' },
       },
       {
+        date: 'June 2006 – June 2007',
         title: 'Software Design Engineer in Test II · Microsoft (contract)',
-        description:
-          'One-year contract on the Windows International team, finding globalization and localization issues ahead of Windows Vista and Longhorn Server.',
+        description: role(
+          'One-year contract through Excel Data Corporation on the Windows International team, finding globalization and localization issues.',
+          [
+            'Promoted from SDET I to SDET II after nine months, taking on duties from an employee and a departing contractor.',
+            'Built language-neutral UI automation with MAUI for Active Directory tools: LDP, Domains and Trusts, Sites and Services, the ADAM setup wizard and AD Schema Analyzer.',
+            'Triaged UI issues in international builds of Windows Vista, cutting handling time per issue from two minutes to one second with a fix rate above 90%.',
+            'Ran the team test lab for Longhorn Server, setting up regression and debugging environments.',
+          ]
+        ),
         icon: 'tabler:briefcase',
       },
     ]}
   />
 
-  <Gallery
-    id="gallery"
-    title="The work, up close"
-    subtitle="Talks, writing and side projects. Click a picture to enlarge it."
-    columns={3}
-    images={[
-      {
-        src: '~/assets/images/placeholders/work-1.jpg',
-        alt: 'Placeholder image',
-        caption: 'Speaking at re:Invent 2018 (photo coming soon)',
-      },
-      {
-        src: '~/assets/images/placeholders/work-6.jpg',
-        alt: 'Placeholder image',
-        caption: 'Nike Engineering blog post (photo coming soon)',
-      },
-      {
-        src: '~/assets/images/placeholders/work-3.jpg',
-        alt: 'Placeholder image',
-        caption: 'A conference or meetup I attended (photo coming soon)',
-      },
-      {
-        src: '~/assets/images/placeholders/work-4.jpg',
-        alt: 'Placeholder image',
-        caption: 'A side project from this blog (photo coming soon)',
-      },
-      {
-        src: '~/assets/images/placeholders/work-5.jpg',
-        alt: 'Placeholder image',
-        caption: 'Speaking at a public event (photo coming soon)',
-      },
-      {
-        src: '~/assets/images/placeholders/work-2.jpg',
-        alt: 'Placeholder image',
-        caption: 'Outside of work (photo coming soon)',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Gallery>
-
   <Features3
     id="skills"
     title="Skills"
-    columns={3}
+    columns={2}
     defaultIcon="tabler:point-filled"
     items={[
       {
         title: 'AWS',
         description:
-          'DynamoDB, Aurora, Glue, Kinesis Firehose, Athena, SNS/SQS, Global Accelerator, CloudFront and IAM.',
+          'DynamoDB, Aurora, ElastiCache, S3, Lambda, Glue, Kinesis Firehose, Athena, SNS/SQS, EC2, EKS, CloudFormation, Global Accelerator, CloudFront and IAM.',
       },
       {
         title: 'Cloud governance and platforms',
-        description: 'AWS account governance, emergency access, cost controls, Kubernetes and Crossplane.',
+        description:
+          'AWS Organizations, service control policies, account approval workflows, emergency access, cost controls, Kubernetes and Crossplane.',
       },
-      { title: 'Event-driven architecture', description: 'CQRS, event streams and eventually consistent data stores.' },
-      { title: 'Languages', description: 'Scala, Java, Kotlin, Node.js and C#.' },
-      { title: 'Data engineering', description: 'ETL pipelines, Hadoop, Hive, PostgreSQL and SQL Server migrations.' },
+      {
+        title: 'AI',
+        description: 'LLM-powered agents, and AI coding assistants in day-to-day development.',
+      },
+      {
+        title: 'Languages',
+        description: 'Scala, Java, Kotlin, TypeScript, Node.js, Python, C#, SQL, and the Spring framework.',
+      },
+      {
+        title: 'Event-driven architecture',
+        description: 'CQRS, event streams, eventually consistent data stores and distributed locking.',
+      },
+      {
+        title: 'APIs and observability',
+        description:
+          'GraphQL, high-traffic mobile APIs, mobile push notifications, Adobe Target, SignalFx, Splunk and OpenTelemetry.',
+      },
+      {
+        title: 'Data engineering',
+        description:
+          'ETL and data migrations (Cassandra, Oracle, Zendesk to Salesforce), Snowflake, AWS Glue, Hadoop, Hive, Pentaho, PostgreSQL and SQL Server.',
+      },
       { title: 'Security and compliance', description: 'K-ISMS, GDPR and DPA request handling, and PCI.' },
+      {
+        title: 'Testing and delivery',
+        description:
+          'Jenkins CI, C# automation frameworks, distributed test runners, and globalization and localization testing.',
+      },
+      {
+        title: 'Speaking and community',
+        description: 'AWS re:Invent speaker, Engineering Forum host and community of practice co-host.',
+      },
     ]}
   />
 
