@@ -76,7 +76,8 @@ const alternate = layout === 'alternate';
         {itemTitle && (
           <h3 class:list={['mt-1 text-xl font-bold', ghost ? 'text-muted italic' : 'text-heading']}>{itemTitle}</h3>
         )}
-        {description && <p class="mt-2 text-muted text-pretty" set:html={description} />}
+        {/* A div, not a p, so a description can carry its own paragraphs and lists. */}
+        {description && <div class="mt-2 text-muted text-pretty" set:html={description} />}
         {image &&
           (typeof image === 'string' ? (
             <Fragment set:html={image} />

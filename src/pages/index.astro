@@ -55,18 +55,18 @@ const structuredData = [
       { variant: 'primary', text: 'Read the blog', href: getBlogPermalink(), icon: 'tabler:article' },
       { text: 'View resume', href: getPermalink('/resume') },
     ]}
-    image={{ src: '~/assets/images/hero.jpg', alt: 'Illustration of a terminal prompt over mountains at night' }}
+    avatar={{ src: '~/assets/images/adamf.jpg', alt: 'Portrait of Adam Farrell' }}
   >
     <Fragment slot="subtitle">
       Senior Principal Software Engineer at Nike, writing about cloud platforms, AWS and experiments in tech.
     </Fragment>
   </Hero>
 
-  <!-- About: photo beside a short intro -->
+  <!-- About: a short intro and where else to find me -->
   <Content
     id="about"
     columns={3}
-    image={{ src: '~/assets/images/placeholders/portrait.jpg', alt: 'Portrait of Adam Farrell', aspect: '1/1' }}
+    classes={{ container: 'max-w-3xl' }}
     items={[
       {
         icon: 'tabler:brand-github',
@@ -113,7 +113,7 @@ const structuredData = [
         title: 'Speaking at AWS re:Invent 2018',
         description:
           'DAT320, "Becoming a Nimble Giant: How Amazon DynamoDB Serves Nike at Scale". How the Sport Activity team used DynamoDB to reach massive scale at low cost.',
-        image: { src: '~/assets/images/placeholders/work-1.jpg', alt: 'Placeholder for a photo from re:Invent 2018' },
+        image: { src: '~/assets/images/reinvent2018.jpg', alt: 'Placeholder for a photo from re:Invent 2018' },
         tags: ['re:Invent', 'DynamoDB'],
         result: '500+ people in attendance',
         href: 'https://www.youtube.com/watch?v=6A1tOFqvgek',
@@ -123,23 +123,20 @@ const structuredData = [
         title: 'Moving faster with AWS by creating an event stream database',
         description:
           'My post on the Nike Engineering blog about FIESTA, a notification service built on Kinesis Firehose, S3, Athena and Glue to handle bursty traffic.',
-        image: { src: '~/assets/images/placeholders/work-2.jpg', alt: 'Placeholder for the blog post cover' },
+        image: { src: '~/assets/images/medium_article.jpg', alt: 'Placeholder for the blog post cover' },
         tags: ['Nike Engineering', 'Event streams'],
         href: 'https://medium.com/nikeengineering/moving-faster-with-aws-by-creating-an-event-stream-database-dedec8ca3eeb',
         linkText: 'Read the post',
       },
       {
-        title: 'Nike App home page API',
+        title: 'CS Agent in the Nike App',
         description:
-          'Took ownership of the service behind the Nike App home page and rebuilt it for speed and stability, with dynamic content via Adobe Target.',
+          'Replaced a legacy rule-based chatbot with an AI agent that understands intent and responds in real time. Athletes can track orders and manage returns, and the agent hands off to Consumer Services with a chat summary when they need extra help.',
         image: {
-          src: '~/assets/images/placeholders/work-5.jpg',
-          alt: 'Placeholder for a photo of the Nike App home page',
+          src: '~/assets/images/ai_cs.jpg',
+          alt: 'CS Agent chat in the Nike App',
         },
-        tags: ['Kotlin', 'APIs'],
-        result: 'Up to 60% lower global latency, +4% channel revenue',
-        href: getPermalink('/resume'),
-        linkText: 'See on resume',
+        tags: ['AI agents', 'Customer service'],
       },
     ]}
   />

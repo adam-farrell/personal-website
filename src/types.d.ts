@@ -204,6 +204,8 @@ export interface HeroImage extends Image {
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   /** Small pill above the tagline, e.g. "New" or "Beta". */
   badge?: string;
+  /** Round portrait above the tagline, for a personal hero. */
+  avatar?: Image;
   content?: string;
   actions?: string | CallToAction[];
   image?: string | HeroImage;
