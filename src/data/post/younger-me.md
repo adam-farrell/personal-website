@@ -17,6 +17,7 @@ I remember back in 2000 I bought my first domain through GoDaddy. It cost me, I 
 I could have just gone back to GoDaddy, gotten a domain, and started pushing files. But I'm not the same person I was back then and the internet is incredibly different. First I had to define what I actually wanted to do.
 
 After some thought, my main requirements were:
+
 - Cheap as possible. I knew I would have to pay something, but I didn't want to spend much.
 - Not locked into a platform. Could I use Medium, Substack or Blogspot? Absolutely. Or a social network like LinkedIn? Yep. But who knows what those services will look like in the years/months ahead.
 - A playground. Working in corporate has some big advantages, but for many valid reasons, some technology is not approved. I wanted to use tech that I might not otherwise have the opportunity to play with.
