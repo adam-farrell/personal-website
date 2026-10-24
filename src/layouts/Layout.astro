@@ -11,6 +11,7 @@ import CustomStyles from '~/components/CustomStyles.astro';
 import ApplyColorMode from '~/components/common/ApplyColorMode.astro';
 import Metadata from '~/components/common/Metadata.astro';
 import SiteVerification from '~/components/common/SiteVerification.astro';
+import CloudflareAnalytics from '~/components/common/CloudflareAnalytics.astro';
 import Intersect from '~/components/common/Intersect.astro';
 
 // Comment the line below to disable View Transitions
@@ -48,5 +49,6 @@ const { language, textDirection } = I18N;
     <slot />
 
     <Intersect />
+    <CloudflareAnalytics />
   </body>
 </html>

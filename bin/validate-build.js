@@ -31,6 +31,21 @@ for (const file of required) {
   }
 }
 
+// The analytics beacon must ship in release builds and nowhere else (see CloudflareAnalytics.astro).
+const analyticsExpected = process.env.PUBLIC_ENABLE_ANALYTICS === 'true';
+const homepagePath = path.join(root, 'dist/index.html');
+if (fs.existsSync(homepagePath)) {
+  const hasBeacon = fs.readFileSync(homepagePath, 'utf8').includes('static.cloudflareinsights.com');
+  if (hasBeacon === analyticsExpected) {
+    console.log(`✓ analytics beacon ${hasBeacon ? 'present (release build)' : 'absent (local build)'}`);
+  } else {
+    console.error(
+      `✗ analytics beacon ${hasBeacon ? 'present' : 'missing'} but expected ${analyticsExpected ? 'present' : 'absent'}`
+    );
+    passed = false;
+  }
+}
+
 if (!passed) {
   process.exit(1);
 }
