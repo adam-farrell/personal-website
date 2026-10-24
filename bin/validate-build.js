@@ -46,6 +46,33 @@ if (fs.existsSync(homepagePath)) {
   }
 }
 
+// Every JSON-LD block must be a single object with an "@context" string. Cloudflare's analytics
+// beacon throws on arrays and on objects without one (see StructuredData.astro).
+function findHtmlFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return findHtmlFiles(fullPath);
+    return entry.name.endsWith('.html') ? [fullPath] : [];
+  });
+}
+
+const jsonLdPattern = /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g;
+let jsonLdBlocks = 0;
+for (const htmlFile of findHtmlFiles(path.join(root, 'dist'))) {
+  const html = fs.readFileSync(htmlFile, 'utf8');
+  for (const [, json] of html.matchAll(jsonLdPattern)) {
+    jsonLdBlocks += 1;
+    const data = JSON.parse(json);
+    if (Array.isArray(data) || typeof data['@context'] !== 'string') {
+      console.error(
+        `✗ Invalid JSON-LD in ${path.relative(root, htmlFile)}: must be one object with an "@context" string`
+      );
+      passed = false;
+    }
+  }
+}
+console.log(`✓ ${jsonLdBlocks} JSON-LD blocks are objects with an @context`);
+
 if (!passed) {
   process.exit(1);
 }
