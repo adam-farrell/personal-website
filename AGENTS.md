@@ -108,7 +108,9 @@ Fonts are handled by Astro's native **Fonts API**, configured in `astro.config.t
 
 ## Third-party Scripts
 
-This site ships no analytics or third-party scripts. Partytown and the Google Analytics component were removed on purpose; don't add them back.
+This site ships no third-party scripts by default, and no page content (frameworks, fonts, images) loads from another domain, so availability doesn't depend on outside hosts. Partytown and the Google Analytics component were removed on purpose; don't add them back.
+
+The one deliberate exception is Cloudflare Web Analytics (`src/components/common/CloudflareAnalytics.astro`, included at the end of `<body>` in `Layout.astro`), chosen because it is cookieless and privacy-focused. It renders only when `PUBLIC_ENABLE_ANALYTICS=true`, which `deploy.yml` sets on its build step, so local dev, preview and `npm test` never load it. Add any other third-party script only when the site owner explicitly asks. If CSP is enabled later, allow `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (beacon requests).
 
 ## Content Security Policy
 

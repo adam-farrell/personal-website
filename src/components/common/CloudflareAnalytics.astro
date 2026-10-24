@@ -1,0 +1,14 @@
+---
+// Only the release build ships the beacon. deploy.yml sets PUBLIC_ENABLE_ANALYTICS, so
+// local dev, preview and `npm test` make no third-party requests.
+const enabled = import.meta.env.PUBLIC_ENABLE_ANALYTICS === 'true';
+---
+
+{enabled && (
+  <script
+    is:inline
+    type="module"
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "6f3155227785415582d8e5e0118c9ca3"}'
+  />
+)}
