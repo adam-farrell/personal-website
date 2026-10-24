@@ -2,12 +2,18 @@
 // Emits one or more Schema.org objects as JSON-LD. Use it through the layout's
 // `head` slot: <StructuredData slot="head" schema={schema} />. Blog posts get
 // BlogPosting and BreadcrumbList automatically; the FAQs widget emits FAQPage.
+//
+// Each object gets its own <script> block. A top-level JSON array is valid JSON-LD,
+// but Cloudflare's analytics beacon reads `block["@context"]` and throws on arrays.
 
 export interface Props {
   schema: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const { schema } = Astro.props;
+const schemas = Array.isArray(schema) ? schema : [schema];
 ---
 
-<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+{schemas.map((item) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+))}
